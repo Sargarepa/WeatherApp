@@ -11,7 +11,8 @@ import kotlinx.coroutines.SupervisorJob
 import javax.inject.Inject
 
 class HomeViewModel @Inject constructor(
-    private val defaultWeatherRepository: DefaultWeatherRepository
+    private val defaultWeatherRepository: DefaultWeatherRepository,
+    private val defaultLocationRepository: DefaultLocationRepository
 ) :
     ViewModel() {
 
@@ -34,7 +35,7 @@ class HomeViewModel @Inject constructor(
         _buttonClicked.value = true
     }
 
-    fun refreshCurrentCoordinates(defaultLocationRepository: DefaultLocationRepository) {
+    fun refreshCurrentCoordinates() {
         defaultLocationRepository.refreshCurrentCoordinates()
     }
 

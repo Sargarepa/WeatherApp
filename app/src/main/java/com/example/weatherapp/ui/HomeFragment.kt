@@ -30,14 +30,11 @@ import javax.inject.Inject
 
 class HomeFragment : Fragment() {
 
-    val REQUEST_CODE_LOCATION_PERMISSION = 1
+    private val REQUEST_CODE_LOCATION_PERMISSION = 1
 
     @Inject
     lateinit var homeViewModelFactory: ViewModelFactory
 
-    val defaultLocationRepository: DefaultLocationRepository by lazy(LazyThreadSafetyMode.NONE) {
-        DefaultLocationRepository(requireActivity())
-    }
 
     private val viewModel: HomeViewModel by lazy(LazyThreadSafetyMode.NONE) {
         ViewModelProviders.of(this, homeViewModelFactory)
@@ -79,7 +76,7 @@ class HomeFragment : Fragment() {
 
         binding.updateButton.setOnClickListener {
             if (ContextCompat.checkSelfPermission(
-                    this.context!!,
+                    requireContext(),
                     Manifest.permission.ACCESS_FINE_LOCATION
                 ) == PackageManager.PERMISSION_GRANTED
             ) {
@@ -87,7 +84,7 @@ class HomeFragment : Fragment() {
             } else {
                 if (shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)) {
                     Toast.makeText(
-                        this.context,
+                        requireContext(),
                         "Location permission is required to show weather data.",
                         Toast.LENGTH_SHORT
                     ).show()
@@ -102,7 +99,7 @@ class HomeFragment : Fragment() {
 
         viewModel.buttonClicked.observe(this, Observer {
             if (it == true) {
-                viewModel.refreshCurrentCoordinates(defaultLocationRepository)
+                viewModel.refreshCurrentCoordinates()
                 viewModel.doneClicking()
             }
         })
@@ -124,7 +121,7 @@ class HomeFragment : Fragment() {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 viewModel.setButtonClicked()
             } else {
-                Toast.makeText(this.context, "Permission denied!", Toast.LENGTH_SHORT)
+                Toast.makeText(requireContext(), "Permission denied!", Toast.LENGTH_SHORT)
             }
         } else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults)
