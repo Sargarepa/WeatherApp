@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dimen_small"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="5dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:id="@+id/hour"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="13:00" />
+
+            <TextView
+                android:id="@+id/temperature_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Temperature:"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/hour"
+                tools:text="Temperature:" />
+
+            <TextView
+                android:id="@+id/temperature_value"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@+id/temperature_label"
+                app:layout_constraintTop_toBottomOf="@id/hour"
+                tools:text="33C" />
+
+            <TextView
+                android:id="@+id/humidity_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Humidity:"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/temperature_label"
+                tools:text="Humidity:" />
+
+            <TextView
+                android:id="@+id/humidity_value"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@+id/humidity_label"
+                app:layout_constraintTop_toBottomOf="@id/temperature_value"
+                tools:text="65%" />
+
+            <TextView
+                android:id="@+id/wind_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Wind speed:"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/humidity_label"
+                tools:text="Wind speed:" />
+
+            <TextView
+                android:id="@+id/wind_value"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@+id/wind_label"
+                app:layout_constraintTop_toBottomOf="@id/humidity_value"
+                tools:text="300m/s" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
+
+</layout>
