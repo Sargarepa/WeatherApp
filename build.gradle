@@ -24,6 +24,7 @@ buildscript {
         version_dagger = "2.28"
         version_okhttp = "3.10.0"
         version_stetho = "1.5.1"
+        version_gps = "17.0.0"
     }
     repositories {
         google()
