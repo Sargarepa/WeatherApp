@@ -14,7 +14,9 @@ import kotlinx.coroutines.withContext
 import java.util.*
 import java.util.Calendar.*
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class DefaultWeatherRepository @Inject constructor(
     private val weatherDao: WeatherDao,
     private val weatherRemoteDataSource: WeatherRemoteDataSource

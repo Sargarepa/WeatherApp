@@ -35,17 +35,16 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-
-    // Android KTX
-    implementation "androidx.core:core-ktx:$version_core"
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$version_kotlin"
 
     // Support libraries
     implementation "androidx.appcompat:appcompat:$version_appcompat"
     implementation "androidx.fragment:fragment:$version_fragment"
     implementation "androidx.constraintlayout:constraintlayout:$version_constraint_layout"
 
+    // Android KTX
+    implementation "androidx.core:core-ktx:$version_core"
 
     // Navigation
     implementation "android.arch.navigation:navigation-fragment-ktx:$version_navigation"
@@ -61,30 +60,38 @@ dependencies {
     implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:$version_retrofit_coroutines_adapter"
     implementation "com.squareup.okhttp3:okhttp:$version_okhttp"
     implementation "com.squareup.okhttp3:logging-interceptor:$version_okhttp"
-    implementation "com.facebook.stetho:stetho-okhttp3:$version_stetho"
 
     // Moshi for parsing the JSON format
     implementation "com.squareup.moshi:moshi:$version_moshi"
     implementation "com.squareup.moshi:moshi-kotlin:$version_moshi"
 
+    // Joda time library for dealing with time
+    implementation "joda-time:joda-time:$version_joda"
+
     // ViewModel and LiveData (arch components)
     implementation "androidx.lifecycle:lifecycle-extensions:$version_lifecycle_extensions"
+
+    // Tools
+    implementation "com.jakewharton.timber:timber:$version_timber"
+    implementation "com.facebook.stetho:stetho:$version_stetho"
+    implementation "com.facebook.stetho:stetho-okhttp3:$version_stetho"
+
+    // Glide for images
+    implementation "com.github.bumptech.glide:glide:$version_glide"
 
     // Room database
     implementation "androidx.room:room-runtime:$version_room"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     kapt "androidx.room:room-compiler:$version_room"
 
+    //Paging
+    implementation "androidx.paging:paging-runtime:$version_paging"
+
     //Dagger
     implementation "com.google.dagger:dagger:$version_dagger"
     kapt "com.google.dagger:dagger-compiler:$version_dagger"
+    compileOnly "com.squareup.inject:assisted-inject-annotations-dagger2:$version_assisted_inject"
+    kapt "com.squareup.inject:assisted-inject-processor-dagger2:$version_assisted_inject"
 
-    //GPS
-    implementation "com.google.android.gms:play-services-location:$version_gps"
-
-
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
 }
