@@ -12,6 +12,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.*
+import java.util.Calendar.*
 import javax.inject.Inject
 
 class DefaultWeatherRepository @Inject constructor(
@@ -28,11 +29,11 @@ class DefaultWeatherRepository @Inject constructor(
                 refreshWeather(20.0f, 44.0f)
             }
         }
-        val calendar: Calendar = GregorianCalendar()
-        val startTime = getStartTime(calendar)
-        val endTime = getEndTime(calendar)
+        val boundsOfDay = calculateBoundsOfCurrentDay()
+        val startOfDay = boundsOfDay.first.time
+        val endOfDay = boundsOfDay.second.time
 
-        return Transformations.map(weatherDao.getWeatherForInterval(startTime, endTime)) {
+        return Transformations.map(weatherDao.getWeatherForInterval(startOfDay, endOfDay)) {
             it.map { it.asDomainModelWeather() }
         }
     }
@@ -47,17 +48,21 @@ class DefaultWeatherRepository @Inject constructor(
         }
     }
 
-    private fun getStartTime(calendar: Calendar): Long {
-        calendar.set(Calendar.HOUR_OF_DAY, 0)
-        calendar.set(Calendar.MINUTE, 0)
-        calendar.set(Calendar.SECOND, 0)
-        return calendar.timeInMillis
+    fun calculateStartOfDay(calendar: Calendar): Date {
+        return calendar.apply {
+            set(HOUR_OF_DAY, 0)
+            set(MINUTE, 0)
+            set(SECOND, 0)
+            set(MILLISECOND, 0)
+        }.time
     }
 
-    private fun getEndTime(calendar: Calendar): Long {
-        calendar.set(Calendar.HOUR_OF_DAY, 23)
-        calendar.set(Calendar.MINUTE, 59)
-        calendar.set(Calendar.SECOND, 59)
-        return calendar.timeInMillis
+    fun calculateStartOfNextDay(calendar: Calendar): Date {
+        return calculateStartOfDay(calendar.apply { add(DAY_OF_MONTH, 1) })
+    }
+
+    fun calculateBoundsOfCurrentDay(): Pair<Date, Date> {
+        val calendar = getInstance()
+        return Pair(calculateStartOfDay(calendar), calculateStartOfNextDay(calendar))
     }
 }

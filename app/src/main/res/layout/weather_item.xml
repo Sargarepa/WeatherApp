@@ -3,6 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <import type="com.example.weatherapp.data.domain.Weather" />
+
+        <variable
+            name="weather"
+            type="Weather" />
+
+    </data>
+
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -22,6 +32,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                android:text="@{weather.date.toString()}"
                 tools:text="8/11/2020 13:00" />
 
             <TextView
@@ -39,6 +50,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toEndOf="@+id/temperature_label"
                 app:layout_constraintTop_toBottomOf="@id/date"
+                android:text="@{String.valueOf(weather.temp)}"
                 tools:text="33C" />
 
             <TextView
@@ -56,6 +68,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toEndOf="@+id/humidity_label"
                 app:layout_constraintTop_toBottomOf="@id/temperature_value"
+                android:text="@{String.valueOf(weather.humidity)"
                 tools:text="65%" />
 
             <TextView
@@ -71,6 +84,7 @@
                 android:id="@+id/wind_value"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:text="@{String.valueOf(weather.wind)"
                 app:layout_constraintStart_toEndOf="@+id/wind_label"
                 app:layout_constraintTop_toBottomOf="@id/humidity_value"
                 tools:text="300m/s" />

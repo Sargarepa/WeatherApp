@@ -14,8 +14,6 @@ class DatabaseModule {
     @Provides
     fun provideDb(context: Context) = getDatabase(context)
 
-    @Singleton
-    @Provides
-    fun provideMovieDao(db: WeatherDatabase) = db.weatherDao
+
 
 }

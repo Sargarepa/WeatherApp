@@ -1,9 +1,10 @@
 package com.example.weatherapp
 
+
 import android.app.Application
 import android.content.Context
 import com.example.weatherapp.di.component.AppComponent
-import com.example.weatherapp.di.component.DaggerAppComponent
+
 
 class WeatherAppApplication : Application() {
 

@@ -52,9 +52,4 @@ class NetworkModule {
             .build()
     }
 
-    @Singleton
-    @Provides
-    fun provideOpenWeatherService(retrofit: Retrofit): OpenWeatherService {
-        return retrofit.create(OpenWeatherService::class.java)
-    }
 }

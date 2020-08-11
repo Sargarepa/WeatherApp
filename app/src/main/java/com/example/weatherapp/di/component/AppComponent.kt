@@ -1,8 +1,7 @@
 package com.example.weatherapp.di.component
 
 import android.content.Context
-import com.example.weatherapp.di.module.DatabaseModule
-import com.example.weatherapp.di.module.NetworkModule
+import com.example.weatherapp.di.module.*
 import com.example.weatherapp.ui.HomeFragment
 import dagger.BindsInstance
 import dagger.Component
@@ -11,8 +10,7 @@ import javax.inject.Singleton
 @Singleton
 @Component(
     modules = [
-        DatabaseModule::class,
-        NetworkModule::class
+        AppModule::class
     ]
 )
 interface AppComponent {
