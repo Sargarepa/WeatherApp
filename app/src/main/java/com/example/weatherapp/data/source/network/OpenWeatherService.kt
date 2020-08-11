@@ -7,7 +7,7 @@ import retrofit2.http.Query
 interface OpenWeatherService {
 
     companion object {
-        const val BASE_URL = "pro.openweathermap.org/"
+        const val BASE_URL = "https://pro.openweathermap.org/"
         const val API_KEY = "e5723c8dad803953aa7474fff503cf8f"
     }
 
