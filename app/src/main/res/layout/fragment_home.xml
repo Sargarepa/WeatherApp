@@ -2,8 +2,6 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     tools:context=".ui.HomeFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,7 +13,6 @@
             android:id="@+id/home_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_constraintTop_toBottomOf="@+id/city_label"
             tools:layout_editor_absoluteX="0dp"
             tools:listitem="@layout/weather_item" />
 
