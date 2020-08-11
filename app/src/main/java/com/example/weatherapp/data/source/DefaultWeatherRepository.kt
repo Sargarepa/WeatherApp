@@ -23,20 +23,17 @@ class DefaultWeatherRepository @Inject constructor(
 ) : WeatherRepository {
 
     override fun observeWeather(
-        connectivityAvailable: Boolean,
         coroutineScope: CoroutineScope
     ): LiveData<List<Weather>> {
-        if (connectivityAvailable) {
-            coroutineScope.launch {
+        coroutineScope.launch {
                 refreshWeather(20.0f, 44.0f)
-            }
         }
         val boundsOfDay = calculateBoundsOfCurrentDay()
         val startOfDay = boundsOfDay.first.time
         val endOfDay = boundsOfDay.second.time
 
         return Transformations.map(weatherDao.getWeatherForInterval(startOfDay, endOfDay)) {
-            it.map { it.asDomainModelWeather() }
+           it.map { it.asDomainModelWeather() }
         }
     }
 

@@ -6,7 +6,7 @@ import kotlinx.coroutines.CoroutineScope
 
 interface WeatherRepository {
 
-    fun observeWeather(connectivityAvailable: Boolean, coroutineScope: CoroutineScope): LiveData<List<Weather>>
+    fun observeWeather(coroutineScope: CoroutineScope): LiveData<List<Weather>>
 
     suspend fun refreshWeather(lat: Float = 20.0f, lon: Float = 44.0f)
 

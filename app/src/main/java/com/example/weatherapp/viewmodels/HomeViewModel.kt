@@ -14,9 +14,7 @@ class HomeViewModel @Inject constructor(private val defaultWeatherRepository: De
 
     private val viewModelScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
-    var connectivityAvailable: Boolean = false
-
-    val weather = defaultWeatherRepository.observeWeather(connectivityAvailable, viewModelScope)
+    val weather = defaultWeatherRepository.observeWeather(viewModelScope)
 
     override fun onCleared() {
         super.onCleared()

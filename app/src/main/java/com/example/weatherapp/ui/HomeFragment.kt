@@ -38,7 +38,6 @@ class HomeFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel.connectivityAvailable = ConnectivityUtil.isConnected(context!!)
         viewModel.weather.observe(this, Observer { weather ->
             weather.apply {
                 viewModelAdapter?.submitList(weather)
