@@ -14,6 +14,4 @@ class DatabaseModule {
     @Provides
     fun provideDb(context: Context) = getDatabase(context)
 
-
-
 }
