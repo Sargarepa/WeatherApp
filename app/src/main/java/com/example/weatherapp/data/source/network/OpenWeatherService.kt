@@ -1,5 +1,6 @@
 package com.example.weatherapp.data.source.network
 
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -15,5 +16,5 @@ interface OpenWeatherService {
         @Query("lat") lat: Float,
         @Query("lon") lon: Float,
         @Query("appid") appid: String = API_KEY
-    ): NetworkWeatherContainer
+    ): Response<NetworkWeatherContainer>
 }

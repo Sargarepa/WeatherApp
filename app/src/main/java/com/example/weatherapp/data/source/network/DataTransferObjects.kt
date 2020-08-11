@@ -43,3 +43,14 @@ fun NetworkWeather.asDomainModelWeather(): Weather {
         wind = wind.speed
     )
 }
+
+fun List<NetworkWeather>.asDomainModelWeatherList(): List<Weather> {
+    return map {
+        Weather(
+            temp = it.main.temp,
+            date = Date(it.date),
+            humidity = it.main.humidity,
+            wind = it.wind.speed
+        )
+    }
+}
