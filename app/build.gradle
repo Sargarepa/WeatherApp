@@ -65,33 +65,27 @@ dependencies {
     implementation "com.squareup.moshi:moshi:$version_moshi"
     implementation "com.squareup.moshi:moshi-kotlin:$version_moshi"
 
-    // Joda time library for dealing with time
-    implementation "joda-time:joda-time:$version_joda"
-
     // ViewModel and LiveData (arch components)
     implementation "androidx.lifecycle:lifecycle-extensions:$version_lifecycle_extensions"
 
-    // Tools
-    implementation "com.jakewharton.timber:timber:$version_timber"
-    implementation "com.facebook.stetho:stetho:$version_stetho"
+    //Tools
     implementation "com.facebook.stetho:stetho-okhttp3:$version_stetho"
 
-    // Glide for images
-    implementation "com.github.bumptech.glide:glide:$version_glide"
 
     // Room database
     implementation "androidx.room:room-runtime:$version_room"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
     kapt "androidx.room:room-compiler:$version_room"
-
-    //Paging
-    implementation "androidx.paging:paging-runtime:$version_paging"
 
     //Dagger
     implementation "com.google.dagger:dagger:$version_dagger"
     kapt "com.google.dagger:dagger-compiler:$version_dagger"
-    compileOnly "com.squareup.inject:assisted-inject-annotations-dagger2:$version_assisted_inject"
-    kapt "com.squareup.inject:assisted-inject-processor-dagger2:$version_assisted_inject"
 
+    //Location
+    implementation "com.google.android.gms:play-services-location:$version_location"
 
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
 }

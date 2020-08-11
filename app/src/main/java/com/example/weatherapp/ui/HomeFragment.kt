@@ -1,11 +1,15 @@
 package com.example.weatherapp.ui
 
+import android.Manifest
 import android.content.Context
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.LayoutRes
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -17,19 +21,25 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherapp.R
 import com.example.weatherapp.application
 import com.example.weatherapp.data.domain.Weather
+import com.example.weatherapp.data.source.DefaultLocationRepository
 import com.example.weatherapp.databinding.FragmentHomeBinding
 import com.example.weatherapp.databinding.WeatherItemBinding
-import com.example.weatherapp.util.ConnectivityUtil
 import com.example.weatherapp.viewmodels.HomeViewModel
 import com.example.weatherapp.viewmodels.ViewModelFactory
 import javax.inject.Inject
 
 class HomeFragment : Fragment() {
 
+    val REQUEST_CODE_LOCATION_PERMISSION = 1
+
     @Inject
     lateinit var homeViewModelFactory: ViewModelFactory
 
-    private val viewModel: HomeViewModel by lazy {
+    val defaultLocationRepository: DefaultLocationRepository by lazy(LazyThreadSafetyMode.NONE) {
+        DefaultLocationRepository(requireActivity())
+    }
+
+    private val viewModel: HomeViewModel by lazy(LazyThreadSafetyMode.NONE) {
         ViewModelProviders.of(this, homeViewModelFactory)
             .get(HomeViewModel::class.java)
     }
@@ -67,12 +77,58 @@ class HomeFragment : Fragment() {
 
         viewModelAdapter = HomeAdapter()
 
+        binding.updateButton.setOnClickListener {
+            if (ContextCompat.checkSelfPermission(
+                    this.context!!,
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                ) == PackageManager.PERMISSION_GRANTED
+            ) {
+                viewModel.setButtonClicked()
+            } else {
+                if (shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)) {
+                    Toast.makeText(
+                        this.context,
+                        "Location permission is required to show weather data.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+
+                requestPermissions(
+                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                    REQUEST_CODE_LOCATION_PERMISSION
+                )
+            }
+        }
+
+        viewModel.buttonClicked.observe(this, Observer {
+            if (it == true) {
+                viewModel.refreshCurrentCoordinates(defaultLocationRepository)
+                viewModel.doneClicking()
+            }
+        })
+
         binding.homeRecyclerView.apply {
             adapter = viewModelAdapter
             layoutManager = LinearLayoutManager(context)
         }
 
         return binding.root
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        if (requestCode == REQUEST_CODE_LOCATION_PERMISSION) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                viewModel.setButtonClicked()
+            } else {
+                Toast.makeText(this.context, "Permission denied!", Toast.LENGTH_SHORT)
+            }
+        } else {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        }
     }
 
     class HomeAdapter() : ListAdapter<Weather, WeatherViewHolder>(WEATHER_COMPARATOR) {

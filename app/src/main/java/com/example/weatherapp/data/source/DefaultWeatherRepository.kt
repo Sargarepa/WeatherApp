@@ -26,14 +26,19 @@ class DefaultWeatherRepository @Inject constructor(
         coroutineScope: CoroutineScope
     ): LiveData<List<Weather>> {
         coroutineScope.launch {
-                refreshWeather(20.0f, 44.0f)
+            refreshWeather(20.0f, 44.0f)
         }
         val boundsOfDay = calculateBoundsOfCurrentDay()
         val startOfDay = boundsOfDay.first.time
         val endOfDay = boundsOfDay.second.time
 
-        return Transformations.map(weatherDao.getWeatherForInterval(startOfDay, endOfDay)) {
-           it.map { it.asDomainModelWeather() }
+        return Transformations.map(
+            weatherDao.getWeatherForInterval(
+                startOfDay,
+                endOfDay
+            )
+        ) { databaseWeather ->
+            databaseWeather.map { it.asDomainModelWeather() }
         }
     }
 
