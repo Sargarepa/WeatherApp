@@ -17,9 +17,9 @@ import javax.inject.Singleton
 class DefaultLocationRepository @Inject constructor(private val context: Context) :
     LocationRepository {
 
-    var _coordinates = MutableLiveData<LatLng>()
-    val coordinates: LiveData<LatLng>
-        get() = _coordinates
+    private var _location = MutableLiveData<LatLng>()
+    val location: LiveData<LatLng>
+        get() = _location
 
     @SuppressLint("MissingPermission")
     override fun refreshCurrentCoordinates() {
@@ -38,7 +38,7 @@ class DefaultLocationRepository @Inject constructor(private val context: Context
                     val latestLocationIndex = locationResult.locations.size - 1
                     val latitude = locationResult.locations[latestLocationIndex].latitude
                     val longitude = locationResult.locations[latestLocationIndex].longitude
-                    _coordinates.value = LatLng(latitude, longitude)
+                    _location.value = LatLng(latitude, longitude)
                 }
             }
         }

@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 class WeatherRemoteDataSource @Inject constructor(private val OWService: OpenWeatherService) {
 
-    suspend fun getWeather(lat: Float, lon: Float): Result<List<Weather>> {
+    suspend fun getWeather(lat: Double, lon: Double): Result<List<Weather>> {
         return withContext(Dispatchers.IO) {
             val networkWeatherAsync = async { OWService.getWeatherData(lat, lon) }
 

@@ -13,8 +13,8 @@ interface OpenWeatherService {
 
     @GET("/data/2.5/forecast/hourly")
     suspend fun getWeatherData(
-        @Query("lat") lat: Float,
-        @Query("lon") lon: Float,
+        @Query("lat") lat: Double,
+        @Query("lon") lon: Double,
         @Query("appid") appid: String = API_KEY
     ): Response<NetworkWeatherContainer>
 }

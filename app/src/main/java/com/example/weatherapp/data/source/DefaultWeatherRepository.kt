@@ -23,10 +23,12 @@ class DefaultWeatherRepository @Inject constructor(
 ) : WeatherRepository {
 
     override fun observeWeather(
+        lat: Double,
+        lon: Double,
         coroutineScope: CoroutineScope
     ): LiveData<List<Weather>> {
         coroutineScope.launch {
-            refreshWeather(20.0f, 44.0f)
+            refreshWeather(lat, lon)
         }
         val boundsOfDay = calculateBoundsOfCurrentDay()
         val startOfDay = boundsOfDay.first.time
@@ -43,7 +45,7 @@ class DefaultWeatherRepository @Inject constructor(
     }
 
 
-    override suspend fun refreshWeather(lat: Float, lon: Float) {
+    override suspend fun refreshWeather(lat: Double, lon: Double) {
         withContext(Dispatchers.IO) {
             val weatherData = weatherRemoteDataSource.getWeather(lat, lon).data
             weatherData?.apply {
