@@ -17,8 +17,8 @@ data class NetworkWeather(
     val main: NetworkMain,
     @Json(name = "wind")
     val wind: NetworkWind,
-    @Json(name = "dt_txt")
-    val date: Date
+    @Json(name = "dt")
+    val date: Long
 )
 
 @JsonClass(generateAdapter = true)
@@ -38,7 +38,7 @@ data class NetworkWind(
 fun NetworkWeather.asDomainModelWeather(): Weather {
     return Weather(
         temp = main.temp,
-        date = date,
+        date = Date(date),
         humidity = main.humidity,
         wind = wind.speed
     )
