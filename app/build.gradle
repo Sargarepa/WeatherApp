@@ -71,6 +71,7 @@ dependencies {
 
     //Tools
     implementation "com.facebook.stetho:stetho-okhttp3:$version_stetho"
+    implementation 'joda-time:joda-time:2.10.6'
 
 
     // Room database
