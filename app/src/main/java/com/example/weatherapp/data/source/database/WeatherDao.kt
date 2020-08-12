@@ -12,7 +12,7 @@ interface WeatherDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertWeather(vararg weather: DatabaseWeather)
 
-    @Query("select * from databaseweather where date between :start and :end order by date asc")
+    @Query("select * from databaseweather where date >= :start and date < :end order by date asc")
     fun getWeatherForInterval(start: Long, end: Long): LiveData<List<DatabaseWeather>>
 
 }
