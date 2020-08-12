@@ -35,7 +35,7 @@ class DefaultWeatherRepository @Inject constructor(
         val endOfDay = boundsOfDay.second.time
 
         return Transformations.map(
-            weatherDao.getWeatherForInterval(startOfDay, endOfDay)
+            weatherDao.getWeatherForInterval(startOfDay, endOfDay, lat, lon)
         ) { databaseWeather ->
             databaseWeather.map { it.asDomainModelWeather() }
         }

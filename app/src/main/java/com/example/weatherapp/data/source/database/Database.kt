@@ -9,7 +9,7 @@ import androidx.room.TypeConverters
 @Database(
     entities = arrayOf(
         DatabaseWeather::class
-    ), version = 1, exportSchema = false
+    ), version = 2, exportSchema = false
 )
 @TypeConverters(Converters::class)
 abstract class WeatherDatabase: RoomDatabase() {

@@ -8,7 +8,11 @@ import java.util.*
 @JsonClass(generateAdapter = true)
 data class NetworkWeatherContainer(
     @Json(name = "hourly")
-    val hourly: List<NetworkWeather>
+    val hourly: List<NetworkWeather>,
+    @Json(name = "lat")
+    val lat: Double,
+    @Json(name = "lon")
+    val lon: Double
 )
 
 @JsonClass(generateAdapter = true)
@@ -24,21 +28,13 @@ data class NetworkWeather(
 )
 
 
-
-fun NetworkWeather.asDomainModelWeather(): Weather {
-    return Weather(
-        temp = temp,
-        date = Date(date),
-        humidity = humidity,
-        wind = wind
-    )
-}
-
-fun List<NetworkWeather>.asDomainModelWeatherList(): List<Weather> {
-    return map {
+fun NetworkWeatherContainer.asDomainModelWeatherList(): List<Weather> {
+    return this.hourly.map {
         Weather(
+            lat = this.lat,
+            lon = this.lon,
             temp = it.temp,
-            date = Date(it.date),
+            date = Date(it.date*1000),
             humidity = it.humidity,
             wind = it.wind
         )
