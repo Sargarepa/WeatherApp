@@ -11,7 +11,7 @@ interface OpenWeatherService {
         const val API_KEY = "0689ddcfcf95a9ddddb55ec1e498b129"
     }
 
-    @GET("/data/2.5/forecast/hourly")
+    @GET("/data/2.5/onecall")
     suspend fun getWeatherData(
         @Query("lat") lat: Double,
         @Query("lon") lon: Double,

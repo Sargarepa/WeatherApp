@@ -18,7 +18,7 @@ class WeatherRemoteDataSource @Inject constructor(private val OWService: OpenWea
             if (networkWeatherResponse.isSuccessful) {
                 val networkWeatherBody = networkWeatherResponse.body()
                 if (networkWeatherBody != null) {
-                    val domainWeather = networkWeatherBody.list.asDomainModelWeatherList()
+                    val domainWeather = networkWeatherBody.hourly.asDomainModelWeatherList()
                     Result.success(domainWeather)
                 } else {
                     Result.error("Results were empty")

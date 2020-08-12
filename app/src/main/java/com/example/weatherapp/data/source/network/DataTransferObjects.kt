@@ -7,50 +7,40 @@ import java.util.*
 
 @JsonClass(generateAdapter = true)
 data class NetworkWeatherContainer(
-    @Json(name = "list")
-    val list: List<NetworkWeather>
+    @Json(name = "hourly")
+    val hourly: List<NetworkWeather>
 )
 
 @JsonClass(generateAdapter = true)
 data class NetworkWeather(
-    @Json(name = "main")
-    val main: NetworkMain,
-    @Json(name = "wind")
-    val wind: NetworkWind,
+    @Json(name = "temp")
+    val temp: Float,
+    @Json(name = "humidity")
+    val humidity: Int,
+    @Json(name = "wind_speed")
+    val wind: Float,
     @Json(name = "dt")
     val date: Long
 )
 
-@JsonClass(generateAdapter = true)
-data class NetworkMain(
-    @Json(name = "temp")
-    val temp: Float,
-    @Json(name = "humidity")
-    val humidity: Int
-)
 
-@JsonClass(generateAdapter = true)
-data class NetworkWind(
-    @Json(name = "speed")
-    val speed: Float
-)
 
 fun NetworkWeather.asDomainModelWeather(): Weather {
     return Weather(
-        temp = main.temp,
+        temp = temp,
         date = Date(date),
-        humidity = main.humidity,
-        wind = wind.speed
+        humidity = humidity,
+        wind = wind
     )
 }
 
 fun List<NetworkWeather>.asDomainModelWeatherList(): List<Weather> {
     return map {
         Weather(
-            temp = it.main.temp,
+            temp = it.temp,
             date = Date(it.date),
-            humidity = it.main.humidity,
-            wind = it.wind.speed
+            humidity = it.humidity,
+            wind = it.wind
         )
     }
 }
