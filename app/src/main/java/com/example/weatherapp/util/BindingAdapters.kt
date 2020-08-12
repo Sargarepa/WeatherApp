@@ -6,10 +6,6 @@ import androidx.databinding.BindingAdapter
 import java.math.BigDecimal
 import java.util.*
 
-@BindingAdapter("goneIfNotNull")
-fun goneIfNotNull(view: View, it: Any?) {
-    view.visibility = if (it != null) View.GONE else View.VISIBLE
-}
 
 @BindingAdapter("date")
 fun setTextToHoursAndMinutes(textView: TextView, date: Date) {
