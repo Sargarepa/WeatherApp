@@ -15,8 +15,8 @@ data class Weather(
 fun List<Weather>.asDatabaseModelWeatherList(): Array<DatabaseWeather> {
     return map {
         DatabaseWeather(
-            lat = it.lat,
-            lon = it.lon,
+            lat = (it.lat * 100).toInt(),
+            lon = (it.lon * 100).toInt(),
             temp = it.temp,
             date = it.date.time,
             humidity = it.humidity,

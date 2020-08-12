@@ -8,9 +8,9 @@ import java.util.*
 @Entity (primaryKeys = arrayOf("latitude", "longitude", "date"))
 data class DatabaseWeather constructor(
     @ColumnInfo(name = "latitude")
-    val lat: Double,
+    val lat: Int,
     @ColumnInfo(name = "longitude")
-    val lon: Double,
+    val lon: Int,
     @ColumnInfo(name = "date")
     val date: Long,
     @ColumnInfo(name = "temperature")
@@ -23,8 +23,8 @@ data class DatabaseWeather constructor(
 
 fun DatabaseWeather.asDomainModelWeather(): Weather {
     return Weather(
-        lat = this.lat,
-        lon = this.lon,
+        lat = (this.lat/100).toDouble(),
+        lon = (this.lon/100).toDouble(),
         temp = this.temp,
         date = Date(this.date),
         humidity = this.humidity,
