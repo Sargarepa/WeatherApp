@@ -42,15 +42,6 @@ class HomeFragment : Fragment() {
 
     private var viewModelAdapter: HomeAdapter? = null
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel.weather.observe(this, Observer { weather ->
-            weather.apply {
-                viewModelAdapter?.submitList(weather)
-            }
-        })
-    }
-
     override fun onAttach(context: Context?) {
         super.onAttach(context)
         requireContext().application.appComponent.inject(this)
@@ -72,6 +63,10 @@ class HomeFragment : Fragment() {
         binding.setLifecycleOwner(viewLifecycleOwner)
 
         viewModelAdapter = HomeAdapter()
+
+        viewModel.weather.observe(this, Observer { weather ->
+            viewModelAdapter?.submitList(weather)
+        })
 
         binding.updateButton.setOnClickListener {
             if (ContextCompat.checkSelfPermission(

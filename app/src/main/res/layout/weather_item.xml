@@ -39,7 +39,7 @@
                 android:id="@+id/temperature_label"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Temperature:"
+                android:text="@string/temperature_label"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/date"
                 tools:text="Temperature:" />
@@ -57,7 +57,7 @@
                 android:id="@+id/humidity_label"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Humidity:"
+                android:text="@string/humidity_label"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/temperature_label"
                 tools:text="Humidity:" />
@@ -75,7 +75,7 @@
                 android:id="@+id/wind_label"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Wind speed:"
+                android:text="@string/wind_label"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/humidity_label"
                 tools:text="Wind speed:" />
