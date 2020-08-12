@@ -21,7 +21,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherapp.R
 import com.example.weatherapp.application
 import com.example.weatherapp.data.domain.Weather
-import com.example.weatherapp.data.source.DefaultLocationRepository
 import com.example.weatherapp.databinding.FragmentHomeBinding
 import com.example.weatherapp.databinding.WeatherItemBinding
 import com.example.weatherapp.viewmodels.HomeViewModel
@@ -80,7 +79,7 @@ class HomeFragment : Fragment() {
                     Manifest.permission.ACCESS_FINE_LOCATION
                 ) == PackageManager.PERMISSION_GRANTED
             ) {
-                viewModel.setButtonClicked()
+                viewModel.refreshLocationData()
             } else {
                 if (shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)) {
                     Toast.makeText(
@@ -97,12 +96,6 @@ class HomeFragment : Fragment() {
             }
         }
 
-        viewModel.buttonClicked.observe(this, Observer {
-            if (it == true) {
-                viewModel.refreshCurrentCoordinates()
-                viewModel.doneClicking()
-            }
-        })
 
         binding.homeRecyclerView.apply {
             adapter = viewModelAdapter
@@ -119,9 +112,9 @@ class HomeFragment : Fragment() {
     ) {
         if (requestCode == REQUEST_CODE_LOCATION_PERMISSION) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                viewModel.setButtonClicked()
+                viewModel.refreshLocationData()
             } else {
-                Toast.makeText(requireContext(), "Permission denied!", Toast.LENGTH_SHORT)
+                Toast.makeText(requireContext(), "Permission denied!", Toast.LENGTH_SHORT).show()
             }
         } else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults)

@@ -8,7 +8,7 @@ interface OpenWeatherService {
 
     companion object {
         const val BASE_URL = "https://api.openweathermap.org/"
-        const val API_KEY = "e5723c8dad803953aa7474fff503cf8f"
+        const val API_KEY = "0689ddcfcf95a9ddddb55ec1e498b129"
     }
 
     @GET("/data/2.5/forecast/hourly")

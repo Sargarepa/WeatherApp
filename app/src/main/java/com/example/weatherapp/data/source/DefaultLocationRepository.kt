@@ -21,8 +21,12 @@ class DefaultLocationRepository @Inject constructor(private val context: Context
     val location: LiveData<LatLng>
         get() = _location
 
+    override fun getLastLocation(): LiveData<LatLng> {
+        return location
+    }
+
     @SuppressLint("MissingPermission")
-    override fun refreshCurrentCoordinates() {
+    override fun refreshLocationData() {
         val locationRequest = LocationRequest().apply {
             interval = 10000
             fastestInterval = 3000

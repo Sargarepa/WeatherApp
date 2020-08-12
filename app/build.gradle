@@ -67,6 +67,7 @@ dependencies {
 
     // ViewModel and LiveData (arch components)
     implementation "androidx.lifecycle:lifecycle-extensions:$version_lifecycle_extensions"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
 
     //Tools
     implementation "com.facebook.stetho:stetho-okhttp3:$version_stetho"
