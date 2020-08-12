@@ -64,31 +64,33 @@ class HomeFragment : Fragment() {
 
         viewModelAdapter = HomeAdapter()
 
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            viewModel.refreshLocationData()
+        } else {
+            if (shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)) {
+                Toast.makeText(
+                    requireContext(),
+                    "Location permission is required to show weather data.",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
+            requestPermissions(
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                REQUEST_CODE_LOCATION_PERMISSION
+            )
+        }
+
         viewModel.weather.observe(this, Observer { weather ->
             viewModelAdapter?.submitList(weather)
         })
 
         binding.updateButton.setOnClickListener {
-            if (ContextCompat.checkSelfPermission(
-                    requireContext(),
-                    Manifest.permission.ACCESS_FINE_LOCATION
-                ) == PackageManager.PERMISSION_GRANTED
-            ) {
-                viewModel.refreshLocationData()
-            } else {
-                if (shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)) {
-                    Toast.makeText(
-                        requireContext(),
-                        "Location permission is required to show weather data.",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-
-                requestPermissions(
-                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                    REQUEST_CODE_LOCATION_PERMISSION
-                )
-            }
+            viewModel.refreshLocationData()
         }
 
 
